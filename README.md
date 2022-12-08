@@ -27,9 +27,10 @@
 
 - ### States of the app
 
-  1. To toggle the button show, when user clicks the button `showButton` will become false.
-  2. Array of words
-  3. Array of frequencies
+  - To toggle the button show, when user clicks the button `showButton` will become false.
+  - Array of words
+  - Array of frequencies
+  <p>&nbsp;</p>
 
   ```javascript
   const [showButton, setShowButton] = useState(true);
@@ -39,9 +40,10 @@
 
 - ### Fetch data function
 
-  1. This function will be called when user clicks on the button
-  2. Reading file text
-  3. Calling function `findFrequencyOfWords(string)` to find frequency of words
+  - This function will be called when user clicks on the button
+  - Reading file text
+  - Calling function `findFrequencyOfWords(string)` to find frequency of words
+  <p>&nbsp;</p>
 
   ```javascript
   const fetchData = async () => {
@@ -59,15 +61,16 @@
 
 - ### Find Frequency function
 
-  1. This function will be called inside the `fetchData()`
-  2. Step 1 replacing all the characters like ! . ?
-  3. Step 2 converting string to array
-  4. Step 3 finding frequency of words and storing them in `freqMap` object
-  5. Step 4 converting object into array
-  6. Step 5 sorting frequency in descending order
-  7. Step 6 removing the empty character
-  8. Step 7 Creating two arrays of `wordsArray` and `frequencyArray` for charts library
-  9. Step 8 Storing in the state
+  - This function will be called inside the `fetchData()`
+  - Step 1 replacing all the characters like ! . ?
+  - Step 2 converting string to array
+  - Step 3 finding frequency of words and storing them in `freqMap` object
+  - Step 4 converting object into array
+  - Step 5 sorting frequency in descending order
+  - Step 6 removing the empty character
+  - Step 7 Creating two arrays of `wordsArray` and `frequencyArray` for charts library
+  - Step 8 Storing in the state
+  <p>&nbsp;</p>
 
   ```javascript
   const findFrequencyOfWords = (string) => {
@@ -114,11 +117,12 @@
 
 - ### Options for chart
 
-  1. Options for apexcharts
-  2. Chart having id as `frequency-of-words`
-  3. Configuring x-axis should have words
-  4. Configuring y-axis should have frequencies
-  5. Configuring colors
+  - Options for apexcharts
+  - Chart having id as `frequency-of-words`
+  - Configuring x-axis should have words
+  - Configuring y-axis should have frequencies
+  - Configuring colors
+  <p>&nbsp;</p>
 
   ```javascript
   const options = {
@@ -140,10 +144,11 @@
 
 - ### App Component
 
-  1. Rendering button based on `showButton` state
-  2. If `showButton` is true showing button
-  3. If `showButton` is false showing Chart
-  4. Button has a click function which will be called when user clicks on button
+  - Rendering button based on `showButton` state
+  - If `showButton` is true showing button
+  - If `showButton` is false showing Chart
+  - Button has a click function which will be called when user clicks on button
+  <p>&nbsp;</p>
 
   ```javascript
   <div className="App">
