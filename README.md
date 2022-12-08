@@ -1,70 +1,163 @@
-# Getting Started with Create React App
+# Terribly Tiny Tales Assignment
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Screenshots of web page
 
-## Available Scripts
+### Home Page
 
-In the project directory, you can run:
+![Home Page](./src/assets/Home.png)
 
-### `yarn start`
+### Charts
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+![Charts](./src/assets/charts.png)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Chart with download functionality
 
-### `yarn test`
+![Charts Download](./src/assets/download.jpg)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Chart after download
 
-### `yarn build`
+![Chart after download](./src/assets/chart.png)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Library Used
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- react-apexcharts
+- apexcharts
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Code Components
 
-### `yarn eject`
+### - States of the app
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. To toggle the button show, when user clicks the button `showButton` will become false.
+2. Array of words
+3. Array of frequencies
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```javascript
+const [showButton, setShowButton] = useState(true);
+const [words, setWords] = useState([]);
+const [frequencies, setFrequencies] = useState([]);
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### - Fetch data function
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+1. This function will be called when user clicks on the button
+2. Reading file text
+3. Calling function `findFrequencyOfWords(string)` to find frequency of words
 
-## Learn More
+```javascript
+const fetchData = async () => {
+  try {
+    setShowButton(false);
+    const dataBuffer = await fetch(testData);
+    const data = await dataBuffer.text();
+    findFrequencyOfWords(data.toLowerCase());
+  } catch (error) {
+    console.log("Something went wrong while fetching data");
+    console.log(error);
+  }
+};
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### - Find Frequency function
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. This function will be called inside the `fetchData()`
+2. Step 1 replacing all the characters like ! . ?
+3. Step 2 converting string to array
+4. Step 3 finding frequency of words and storing them in `freqMap` object
+5. Step 4 converting object into array
+6. Step 5 sorting frequency in descending order
+7. Step 6 removing the empty character
+8. Step 7 Creating two arrays of `wordsArray` and `frequencyArray` for charts library
+9. Step 8 Storing in the state
 
-### Code Splitting
+```javascript
+const findFrequencyOfWords = (string) => {
+  // Replacing characters and splitting into array
+  let words = string.replace(/[,.!-?]+/g, "").split(/\s/);
+  let freqMap = {};
+  let wordFrequency = [];
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+  // Finding frequency of words
+  words.forEach((word) => {
+    if (!freqMap[word]) {
+      freqMap[word] = 0;
+    }
+    freqMap[word] += 1;
+  });
 
-### Analyzing the Bundle Size
+  // Converting object into array
+  Object.keys(freqMap).forEach((word) => {
+    let wordObject = { word: "", frequency: null };
+    wordObject.word = word;
+    wordObject.frequency = freqMap[word];
+    wordFrequency.push(wordObject);
+  });
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+  // Sorting wordFrequency array in descending order
+  wordFrequency.sort((a, b) => b.frequency - a.frequency);
 
-### Making a Progressive Web App
+  // Removing the empty character from the array
+  if (wordFrequency[0].word === "") {
+    wordFrequency.shift();
+  }
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+  // making two array words and frequencies
+  let wordsArray = [];
+  let frequencyArray = [];
+  for (let i = 0; i < 20; i++) {
+    wordsArray.push(wordFrequency[i].word);
+    frequencyArray.push(wordFrequency[i].frequency);
+  }
+  setFrequencies(frequencyArray);
+  setWords(wordsArray);
+};
+```
 
-### Advanced Configuration
+### - Options for chart
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+1. Options for apexcharts
+2. Chart having id as `frequency-of-words`
+3. Configuring x-axis should have words
+4. Configuring y-axis should have frequencies
+5. Configuring colors
 
-### Deployment
+```javascript
+const options = {
+  chart: {
+    id: "frequency-of-words",
+  },
+  xaxis: {
+    categories: words,
+  },
+  colors: ["#ffc23e"],
+  series: [
+    {
+      name: "frequency",
+      data: frequencies,
+    },
+  ],
+};
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### - App Component
 
-### `yarn build` fails to minify
+1. Rendering button based on `showButton` state
+2. If `showButton` is true showing button
+3. If `showButton` is false showing Chart
+4. Button has a click function which will be called when user clicks on button
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```javascript
+<div className="App">
+  {showButton ? (
+    <button className="btn" onClick={fetchData}>
+      Submit
+    </button>
+  ) : (
+    <Chart
+      options={options}
+      series={options.series}
+      type="bar"
+      width="1024px"
+    />
+  )}
+</div>
+```
