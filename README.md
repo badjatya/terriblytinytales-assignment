@@ -30,7 +30,7 @@
   - To toggle the button show, when user clicks the button `showButton` will become false.
   - Array of words
   - Array of frequencies
-  <p>&nbsp;</p>
+  <p></p>
 
   ```javascript
   const [showButton, setShowButton] = useState(true);
@@ -43,7 +43,7 @@
   - This function will be called when user clicks on the button
   - Reading file text
   - Calling function `findFrequencyOfWords(string)` to find frequency of words
-  <p>&nbsp;</p>
+  <p></p>
 
   ```javascript
   const fetchData = async () => {
@@ -70,7 +70,7 @@
   - Step 6 removing the empty character
   - Step 7 Creating two arrays of `wordsArray` and `frequencyArray` for charts library
   - Step 8 Storing in the state
-  <p>&nbsp;</p>
+  <p></p>
 
   ```javascript
   const findFrequencyOfWords = (string) => {
@@ -122,7 +122,7 @@
   - Configuring x-axis should have words
   - Configuring y-axis should have frequencies
   - Configuring colors
-  <p>&nbsp;</p>
+  <p></p>
 
   ```javascript
   const options = {
@@ -148,7 +148,7 @@
   - If `showButton` is true showing button
   - If `showButton` is false showing Chart
   - Button has a click function which will be called when user clicks on button
-  <p>&nbsp;</p>
+  <p></p>
 
   ```javascript
   <div className="App">
