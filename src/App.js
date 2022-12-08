@@ -20,7 +20,7 @@ const App = () => {
       setShowButton(false);
       const dataBuffer = await fetch(testData);
       const data = await dataBuffer.text();
-      findFrequencyOfWords(data);
+      findFrequencyOfWords(data.toLowerCase());
     } catch (error) {
       console.log("Something went wrong while fetching data");
       console.log(error);
