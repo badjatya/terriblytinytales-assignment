@@ -1,12 +1,12 @@
 import React from "react";
 
 // Importing Styles
-import "./App.css"
+import "./App.css";
 
 const App = () => {
   return (
-    <div>
-      <h1>App</h1>
+    <div className="App">
+      <button className="btn">Submit</button>
     </div>
   );
 };
