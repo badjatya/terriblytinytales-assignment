@@ -72,19 +72,19 @@ const App = () => {
   // Options for chart
   const options = {
     chart: {
-      id: "basic-bar",
+      id: "frequency-of-words",
     },
     xaxis: {
       categories: words,
     },
     colors: ["#ffc23e"],
+    series: [
+      {
+        name: "frequency",
+        data: frequencies,
+      },
+    ],
   };
-  const series = [
-    {
-      name: "frequency",
-      data: frequencies,
-    },
-  ];
 
   return (
     <div className="App">
@@ -93,9 +93,12 @@ const App = () => {
           Submit
         </button>
       ) : (
-        <div>
-          <Chart options={options} series={series} type="bar" width="1024px" />
-        </div>
+        <Chart
+          options={options}
+          series={options.series}
+          type="bar"
+          width="1024px"
+        />
       )}
     </div>
   );
