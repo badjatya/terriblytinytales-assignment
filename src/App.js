@@ -2,9 +2,6 @@
 import React, { useState } from "react";
 import Chart from "react-apexcharts";
 
-// Importing data
-import testData from "./data/test.txt";
-
 // Importing Styles
 import "./App.css";
 
@@ -18,7 +15,9 @@ const App = () => {
   const fetchData = async () => {
     try {
       setShowButton(false);
-      const dataBuffer = await fetch(testData);
+      const dataBuffer = await fetch(
+        "https://www.terriblytinytales.com/test.txt"
+      );
       const data = await dataBuffer.text();
       findFrequencyOfWords(data.toLowerCase());
     } catch (error) {
